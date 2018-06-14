@@ -9,34 +9,51 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    // references Buttons located in XML associated with this activity
     private Button newActivityButton;
     private Button finishProgramButton;
     private Intent newActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //Creates small popup at bottom of the screen
         Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
 
+        //Links the variable reference a specific UI element by id (name)
         newActivityButton = findViewById(R.id.new_activity_button);
         finishProgramButton = findViewById(R.id.finish_activity_button);
 
+        //Setting intent to navigate from this activity to ta different activity
         newActivity = new Intent(this, SecondActivity.class);
 
+        //Method to initiate onClickListeners for the buttons in the UI
         setListeners();
     }
 
     private void setListeners() {
+        //Sets listener for newActivityButton only
         newActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //this startActivity takes our intent and tell it to use that to start a new Activity
                 startActivity(newActivity);
+            }
+        });
+
+        //Sets listener for finishProgramButton only
+        finishProgramButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //closes current activity (in this location this call will close our program)
+                finish();
             }
         });
     }
 
+    //LifeCycle methods below
     @Override
     protected void onStart() {
         super.onStart();
